@@ -20,7 +20,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form id="formRegister">
                         <div class="mb-3">
                             <label for="registerInputEmail" class="form-label">Email address</label>
                             <input type="email" class="form-control" id="registerInputEmail" aria-describedby="emailHelp" placeholder="Enter yout email">
@@ -40,6 +40,8 @@
         </div>
     </div>
 
+
+
     <!--NAVBAR REGISTER-->
     <nav class="navbar navbar-light bg-light p-3">
         <form class="container-fluid justify-content-end">
@@ -52,7 +54,7 @@
         <h2 class="m-4 p-2">
             Enter your email and password:
         </h2>
-        <form>
+        <form id="formEnter">
             <div class="mb-3">
                 <label for="enterInputEmail" class="form-label">Email address</label>
                 <input type="email" class="form-control" id="enterInputEmail" placeholder="Enter your email adress">
@@ -63,11 +65,13 @@
             </div>
             <button type="button" id="enterUserButton" class="btn btn-success">Sign In</button>
         </form>
-        <div id="content-msg" class="hidden">
-            <p> Welcome! You are a registered user.</p>
-        </div>
-        <div id="content-signoff" class="hidden">
-            <button id="buttonSignOff"> Sign Off</button>
+        <div class="content p-5">
+            <div id="content-msg" class="hidden mt-2">
+                <p class="h4"> Welcome! You are a registered user.</p>
+            </div>
+            <div id="content-signoff" class="hidden">
+                <button id="buttonSignOff" class="btn btn-primary"> Sign Off</button>
+            </div>
         </div>
     </div>
 

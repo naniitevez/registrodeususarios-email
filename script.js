@@ -1,5 +1,6 @@
 let buttonRegister = document.getElementById("registerUserButton")
 let buttonEnter = document.getElementById("enterUserButton")
+let formRegister = document.getElementById("formRegister")
 
 
 const register = () => {
@@ -13,9 +14,10 @@ const register = () => {
         .catch((error) => {
             var errorCode = error.code;
             var errorMessage = error.message;
-            console.log(errorCode)
-            console.log(errorMessage)
+            alert(errorCode + errorMessage)
         });
+
+    formRegister.reset()
 }
 
 
@@ -29,7 +31,6 @@ const enter = () => {
     .catch((error) => {
         var enterErrorCode = error.code;
         var enterErrorMessage = error.message;
-        alert(enterErrorCode)
         alert(enterErrorMessage)
     });
 }
@@ -39,20 +40,15 @@ const viewer = () => {
     firebase.auth().onAuthStateChanged((user) => {
         if (user) {
             console.log("Existe usuario activo")
-            console.log(user.emailVerified)
-
 
             appear(user.emailVerified);
 
 
-            console.log(user)
-
-            var uid = user.uid;
-            // ...
+            // console.log(user)
+            // var uid = user.uid;
         } else {
             console.log("No existe usuario activo")
-                //funct para que desaparezca el boton y el mensaje
-
+            disappear()
         }
     });
 }
@@ -68,10 +64,19 @@ const appear = (emailVerified) => {
     contentSignOff.classList.remove("hidden")
 }
 
+const disappear = () => {
+    let contentMsg = document.getElementById("content-msg")
+    let contentSignOff = document.getElementById("content-signoff")
+
+    contentMsg.classList.add("hidden")
+    contentSignOff.classList.add("hidden")
+
+}
+
 const signOff = () => {
     firebase.auth().signOut()
         .then(() => console.log("Saliendo..."))
-        .catch((error) => console.log(error))
+        .catch((error) => alert(error))
 }
 
 const verify = () => {
@@ -80,13 +85,13 @@ const verify = () => {
 
     user.sendEmailVerification()
         .then(function() {
-            // Email sent.
+            //  info de que se ha enviado un correo
             console.log("Enviando correo...")
         }).catch(function(error) {
-            // An error happened.
-            console.log(error)
+            alert(error)
         });
 }
+
 
 let buttonSignOff = document.getElementById("buttonSignOff")
 buttonSignOff.addEventListener("click", signOff)
@@ -96,7 +101,6 @@ buttonEnter.addEventListener("click", enter)
 
 
 
-//Hay que arreglar cuando muestra el contenido y el boton.
 // Que los inputs se limpien luego de que ingrese.
 
 
