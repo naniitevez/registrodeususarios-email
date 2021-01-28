@@ -1,7 +1,13 @@
-let buttonRegister = document.getElementById("registerUserButton")
-let buttonEnter = document.getElementById("enterUserButton")
-let formRegister = document.getElementById("formRegister")
+const buttonRegister = document.getElementById("registerUserButton")
+const buttonEnter = document.getElementById("enterUserButton")
+const formRegister = document.getElementById("formRegister")
+const modalRegister = document.getElementById("registerModal")
+const spinnerDiv = document.getElementById("spinnerDiv")
 
+
+modalRegister.addEventListener('hidden.bs.modal', (event) => {
+    formRegister.reset()
+})
 
 const register = () => {
     let email = document.getElementById("registerInputEmail").value
@@ -9,6 +15,8 @@ const register = () => {
 
     firebase.auth().createUserWithEmailAndPassword(email, password)
         .then(() => {
+            let modal = bootstrap.Modal.getInstance(modalRegister)
+            modal.hide()
             verify()
         })
         .catch((error) => {
@@ -27,12 +35,15 @@ const enter = () => {
 
 
     firebase.auth().signInWithEmailAndPassword(enterEmail, enterPassword)
+        .then(
+            formRegister.reset()
 
-    .catch((error) => {
-        var enterErrorCode = error.code;
-        var enterErrorMessage = error.message;
-        alert(enterErrorMessage)
-    });
+        )
+        .catch((error) => {
+            var enterErrorCode = error.code;
+            var enterErrorMessage = error.message;
+            alert(enterErrorMessage)
+        });
 }
 
 
