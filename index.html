@@ -41,6 +41,23 @@
     </div>
 
 
+    <!-- SPINNER-->
+
+
+    <div id="spinnerDiv" class="overlay visually-hidden">
+        <div class="overlay__wrapper">
+            <div class="overlay__spinner">
+                <div class="d-flex justify-content-center">
+                    <div class="spinner-grow text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
 
     <!--NAVBAR REGISTER-->
     <nav class="navbar navbar-light bg-light p-3">
@@ -48,6 +65,11 @@
             <button id="buttonRegister" class="btn btn-outline-success me-2 ml-auto" type="button" data-bs-toggle="modal" data-bs-target="#registerModal">Register</button>
         </form>
     </nav>
+
+    <div id="verifiedNotification" class="alert  alert-dismissible fade show  position" role="alert">
+        <!-- <strong>Hey!</strong> We have sent you a verification email, please check your mailbox.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> -->
+    </div>
 
     <!--FORM SIGN IN-->
     <div class="container mt-4">
@@ -66,14 +88,18 @@
             <button type="button" id="enterUserButton" class="btn btn-success">Sign In</button>
         </form>
         <div class="content p-5">
-            <div id="content-msg" class="hidden mt-2">
-                <p class="h4"> Welcome! You are a registered user.</p>
+            <div id="content-msg" class="hidden mt-2 alert alert-info">
+                <strong>Welcome!</strong> You are currently a verified user.
             </div>
+
             <div id="content-signoff" class="hidden">
                 <button id="buttonSignOff" class="btn btn-primary"> Sign Off</button>
             </div>
         </div>
     </div>
+
+
+
 
 
 

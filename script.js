@@ -1,6 +1,7 @@
 const buttonRegister = document.getElementById("registerUserButton")
 const buttonEnter = document.getElementById("enterUserButton")
 const formRegister = document.getElementById("formRegister")
+const formEnter = document.getElementById("formEnter")
 const modalRegister = document.getElementById("registerModal")
 const spinnerDiv = document.getElementById("spinnerDiv")
 
@@ -10,6 +11,9 @@ modalRegister.addEventListener('hidden.bs.modal', (event) => {
 })
 
 const register = () => {
+
+    spinnerDiv.classList.remove("visually-hidden")
+
     let email = document.getElementById("registerInputEmail").value
     let password = document.getElementById("registerInputPassword").value
 
@@ -18,11 +22,14 @@ const register = () => {
             let modal = bootstrap.Modal.getInstance(modalRegister)
             modal.hide()
             verify()
+            spinnerDiv.classList.add("visually-hidden")
+
         })
         .catch((error) => {
             var errorCode = error.code;
             var errorMessage = error.message;
             alert(errorCode + errorMessage)
+            spinnerDiv.classList.add("visually-hidden")
         });
 
     formRegister.reset()
@@ -36,8 +43,7 @@ const enter = () => {
 
     firebase.auth().signInWithEmailAndPassword(enterEmail, enterPassword)
         .then(
-            formRegister.reset()
-
+            formEnter.reset()
         )
         .catch((error) => {
             var enterErrorCode = error.code;
@@ -55,8 +61,8 @@ const viewer = () => {
             appear(user.emailVerified);
 
 
-            // console.log(user)
-            // var uid = user.uid;
+            console.log(user)
+                // var uid = user.uid;
         } else {
             console.log("No existe usuario activo")
             disappear()
@@ -95,12 +101,25 @@ const verify = () => {
     console.log(user)
 
     user.sendEmailVerification()
-        .then(function() {
-            //  info de que se ha enviado un correo
-            console.log("Enviando correo...")
-        }).catch(function(error) {
+        .then(() => infoVerified())
+        .catch((error) => {
             alert(error)
         });
+}
+
+const infoVerified = () => {
+    let verifiedDiv = document.getElementById("verifiedNotification")
+    let message = `
+        <strong>Hey!</strong> We have sent you a verification email, please check your mailbox.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    `
+    verifiedDiv.classList.add("alert-warning")
+    verifiedDiv.innerHTML = message;
+
+    setTimeout(() => {
+        var bsAlert = new bootstrap.Alert(document.getElementById("verifiedNotification"))
+        bsAlert.close()
+    }, 3000)
 }
 
 
@@ -110,9 +129,6 @@ buttonRegister.addEventListener("click", register)
 buttonEnter.addEventListener("click", enter)
 
 
-
-
-// Que los inputs se limpien luego de que ingrese.
 
 
 
